@@ -25,8 +25,25 @@ class Playlist {
     this.tracks = [];
   }
 
-  overallRating(){};
-  totalDuration(){};
+  overallRating(){
+    let rating = 0;
+    this.tracks.map((track) => {
+      rating += track.rating;
+    });
+    rating = rating / this.tracks.length;
+    console.log(chalk.bgCyan.black(`Playlist ${this.name} overall rating is: ${rating.toFixed(2)}`))
+  };
+
+  totalDuration(){
+    let length = 0;
+    this.tracks.map((track) => {
+      length += track.length;
+    });
+    let minutes = Math.floor(length / 60);
+    let seconds = length % 60;
+    // length = length / this.tracks.length;
+    console.log(chalk.bgYellow.black(`Playlist ${this.name} overall length is: ${minutes} minutes and ${seconds} seconds`))
+  };
 
   addTrackToPlaylist(track) {
     this.tracks.push(track);
@@ -56,42 +73,8 @@ class Track {
   }
 }
 
-// Create tracks 
-var heyLove = new Track("Hey Love", "The Delfonics", 5, 200);
-var shineOn = new Track("Shine On You Crazy Diamond", "Pink Floyd", 5, 810);
-var breakOn = new Track("Break On Through", "The Doors", 4, 150);
-var zephyr  = new Track("The Zephyr Song", "Red Hot Chili Peppers", 3, 332);
-var crimson = new Track("The Court of the Crimson King", "King Crimson", 4, 460);
-var lucky   = new Track("Get Lucky", "Daft Punk", 4, 370);
-var praise  = new Track("Praise You", "Fatboy Slim", 3, 324);
-var glory   = new Track("Glory", "Jean-Michel Jarre", 3, 236); 
-
-// Create playlists
-var rockPlaylist = new Playlist("Rock music");
-var electroPlaylist = new Playlist("Electronica");
-
-// Create library
-var musicLibrary = new Library("My Library", "Vlad");
-
-rockPlaylist.addTrackToPlaylist(shineOn);
-rockPlaylist.addTrackToPlaylist(breakOn);
-rockPlaylist.addTrackToPlaylist(zephyr);
-rockPlaylist.addTrackToPlaylist(crimson);
-
-electroPlaylist.addTrackToPlaylist(lucky);
-electroPlaylist.addTrackToPlaylist(praise);
-electroPlaylist.addTrackToPlaylist(glory);
-
-musicLibrary.addPlaylist(rockPlaylist);
-musicLibrary.addPlaylist(electroPlaylist);
-
-// heyLove.showDetails();
-// shineOn.showDetails();
-// breakOn.showDetails();
-// zephyr.showDetails();
-// crimson.showDetails();
-
-// rockPlaylist.showTracks();
-// electroPlaylist.showTracks();
-
-musicLibrary.showPlaylists();
+module.exports = {
+  Library,
+  Playlist,
+  Track
+}
