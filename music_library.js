@@ -12,7 +12,10 @@ class Library {
   }
 
   showPlaylists(){
-    console.log(this.playlists);
+     console.log(chalk.bold.red(`\n${this.name} library (created by ${this.creator})`));
+    this.playlists.map((playlist) => {
+      playlist.showTracks();
+    });
   }
 }
 
@@ -30,7 +33,7 @@ class Playlist {
   }
 
   showTracks(){
-    console.log(chalk.blue(`${this.name} playlist:`))
+    console.log(chalk.blue(`====================\n${this.name} playlist:\n====================`));
     this.tracks.map((track) => {
       track.showDetails();
     });
@@ -49,6 +52,7 @@ class Track {
     console.log('Artist: '+chalk.green(this.artist));
     console.log('Rating: '+chalk.yellow(this.rating));
     console.log('Length: '+chalk.yellow(this.length));
+    console.log(chalk.yellow('----------------------------'));
   }
 }
 
@@ -66,6 +70,9 @@ var glory   = new Track("Glory", "Jean-Michel Jarre", 3, 236);
 var rockPlaylist = new Playlist("Rock music");
 var electroPlaylist = new Playlist("Electronica");
 
+// Create library
+var musicLibrary = new Library("My Library", "Vlad");
+
 rockPlaylist.addTrackToPlaylist(shineOn);
 rockPlaylist.addTrackToPlaylist(breakOn);
 rockPlaylist.addTrackToPlaylist(zephyr);
@@ -75,8 +82,8 @@ electroPlaylist.addTrackToPlaylist(lucky);
 electroPlaylist.addTrackToPlaylist(praise);
 electroPlaylist.addTrackToPlaylist(glory);
 
-rockPlaylist.showTracks();
-electroPlaylist.showTracks();
+musicLibrary.addPlaylist(rockPlaylist);
+musicLibrary.addPlaylist(electroPlaylist);
 
 // heyLove.showDetails();
 // shineOn.showDetails();
@@ -84,3 +91,7 @@ electroPlaylist.showTracks();
 // zephyr.showDetails();
 // crimson.showDetails();
 
+// rockPlaylist.showTracks();
+// electroPlaylist.showTracks();
+
+musicLibrary.showPlaylists();
